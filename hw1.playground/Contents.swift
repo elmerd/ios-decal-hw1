@@ -15,40 +15,42 @@ class Words {
     
     init (wordA: String?, wordB: String?) {
         self.wordA = wordA
-        self.wordB = wordB
+        self.wordB = wordB 
     }
 
 //: ### Are the values passed in to the **init** function and those set to the instance
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: They are not the same. The type of the instance variables are of type String, and the types of the values passed into the **init** function are of type optional.
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(words: [String]) -> Bool {
+   class func arePalindromes(words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reverse())}
-        var numElements = words.count
+        let numElements = words.count
         
-        for let i = 0; i < numElements; i++ {
+        for var i = 0; i < numElements; i++ {
             if words[i] != reversedWords[i] {
                 return false
-            }
+            } 
         }
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: The compiler does not like the **for loop** because **let** is for constants. Since, **i** changes at every iteration, **var** is more appropriate. Also, I changed numElements to **let** because it is constant and does not change. Moreoever, there needed to be a return statement at the end of the function because the function returns a **boolean**. Finally, the beginning of the fucntion needed to change to **class func** because it is a **type method**, and it is used by the **class** Words.
+
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int]
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+    func isAnagram() -> Bool {
+        var countLetters : [Character : Int] = [Character : Int]()
+        let lenA = self.wordA.characters.count
+        let lenB = self.wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -75,13 +77,13 @@ class Words {
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
         }
         
-        return nil
+        return true
     }
 //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
 //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
@@ -89,7 +91,7 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: When declaring **countLetters** it is not initialized to anything. It needs to be initialized so that the other lines can access it. Also, this function is used on an **instance of the class** so it cannot be started as **class func**. In addition, this fucntion was returning nil, but it needs to return a **boolean** value true. Lastly, lenA and lenB need **let** since they are constant and do not change.
     
     
 }
